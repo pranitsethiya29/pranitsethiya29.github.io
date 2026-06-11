@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pranit Sethiya — Backend Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0D1117;
+      --surface:    #161B22;
+      --surface2:   #1C2333;
+      --accent:     #00D4AA;
+      --accent-dim: rgba(0, 212, 170, 0.12);
+      --accent-glow:rgba(0, 212, 170, 0.25);
+      --text:       #E6EDF3;
+      --muted:      #8B949E;
+      --border:     rgba(255,255,255,0.07);
+      --mono:       'JetBrains Mono', monospace;
+      --display:    'Space Grotesk', sans-serif;
+      --body:       'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 80px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Signature element: Kafka-style event stream ticker */
+    .stream-bg {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 42%;
+      overflow: hidden;
+      pointer-events: none;
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.35) 0%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.35) 0%, transparent 100%);
+    }
+    .stream-col {
+      position: absolute;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      animation: streamScroll linear infinite;
+    }
+    .stream-col:nth-child(1) { left: 0%;   animation-duration: 28s; }
+    .stream-col:nth-child(2) { left: 33%;  animation-duration: 22s; animation-delay: -8s; }
+    .stream-col:nth-child(3) { left: 66%;  animation-duration: 34s; animation-delay: -15s; }
+
+    @keyframes streamScroll {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-50%); }
+    }
+    .stream-line {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: rgba(0, 212, 170, 0.18);
+      white-space: nowrap;
+      padding: 3px 8px;
+      line-height: 1.7;
+    }
+    .stream-line.bright { color: rgba(0, 212, 170, 0.38); }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(24px, 3.5vw, 40px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .hero-title span { color: var(--accent); font-weight: 500; }
+    .hero-desc {
+      max-width: 520px;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: #0D1117;
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--display);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    section {
+      padding: 96px 80px;
+    }
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 48px;
+      line-height: 1.1;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1px 1fr;
+      gap: 0 32px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .timeline-item.visible { opacity: 1; transform: translateY(0); }
+    .timeline-item:last-child { border-bottom: none; }
+
+    .tl-left {
+      text-align: right;
+      padding-right: 0;
+    }
+    .tl-company {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .tl-period {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .tl-divider {
+      width: 1px;
+      background: var(--border);
+      position: relative;
+    }
+    .tl-divider::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 50%;
+      transform: translateX(-50%);
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    .tl-right { padding-left: 0; }
+    .tl-role {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .tl-location {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .tl-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .tl-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      border: 1px solid rgba(0, 212, 170, 0.25);
+      color: var(--accent);
+      border-radius: 3px;
+      background: var(--accent-dim);
+      letter-spacing: 0.03em;
+    }
+    .award-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 3px;
+      background: rgba(255,215,0,0.08);
+      border: 1px solid rgba(255,215,0,0.2);
+      color: #FFD700;
+      margin-top: 12px;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--surface); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .skill-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.2s;
+    }
+    .skill-card.visible { opacity: 1; transform: translateY(0); }
+    .skill-card:hover { border-color: rgba(0, 212, 170, 0.3); }
+    .skill-card-icon {
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+    .skill-card-title {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 32px;
+      transition: border-color 0.2s, transform 0.25s;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+    }
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card:hover { border-color: rgba(0,212,170,0.35); transform: translateY(-3px); }
+    .project-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .project-title {
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--surface); }
+    .edu-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: start;
+      padding: 36px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      max-width: 680px;
+    }
+    .edu-logo-box {
+      width: 56px; height: 56px;
+      border-radius: 6px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,212,170,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+    .edu-uni {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .edu-degree {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .edu-period {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .contact-tagline {
+      font-family: var(--display);
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .contact-tagline em { color: var(--accent); font-style: normal; }
+    .contact-blurb {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover { border-color: rgba(0,212,170,0.35); background: var(--surface2); }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .contact-link-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: var(--mono);
+      margin-bottom: 2px;
+    }
+    .contact-link-val {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 80px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer-accent {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(0,212,170,0.45);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      section { padding: 64px 24px; }
+      #hero { padding: 100px 24px 60px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 12px; }
+      .tl-left { text-align: left; }
+      .tl-divider { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+      .stream-bg { width: 100%; opacity: 0.4; }
+      .hero-stats { gap: 28px; flex-wrap: wrap; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-name { font-size: 42px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stream-col { animation: none; }
+      .timeline-item, .skill-card, .project-card { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">pranit.sethiya</span>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <!-- Kafka stream signature element -->
+    <div class="stream-bg" aria-hidden="true">
+      <div class="stream-col" id="sc1"></div>
+      <div class="stream-col" id="sc2"></div>
+      <div class="stream-col" id="sc3"></div>
+    </div>
+
+    <div class="hero-eyebrow">Backend Engineer · Distributed Systems</div>
+    <h1 class="hero-name">Pranit<br>Sethiya</h1>
+    <p class="hero-title">Building systems that <span>scale</span>.</p>
+    <p class="hero-desc">
+      Senior Backend Engineer with 3+ years designing event-driven microservices, 
+      high-throughput data pipelines, and cloud-native APIs. 
+      Based in Bengaluru — open to new opportunities.
+    </p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#contact">Get in touch →</a>
+      <a class="btn-ghost" href="https://www.linkedin.com/in/pranit-sethiya-b6b09415b/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn-ghost" href="https://github.com/pranitsethiya29" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+      <div>
+        <div class="stat-num">SDE-3</div>
+        <div class="stat-label">Current level</div>
+      </div>
+      <div>
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Events processed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label">Career</div>
+      <h2 class="section-title">Where I've worked</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="tl-left">
+            <div class="tl-company">Trukker Technologies</div>
+            <div class="tl-period">2021 – Present</div>
+          </div>
+          <div class="tl-divider"></div>
+          <div class="tl-right">
+            <div class="tl-role">Senior Software Engineer (SDE-3, Backend)</div>
+            <div class="tl-location">📍 Bengaluru, India</div>
+            <p class="tl-desc">
+              Architecting and maintaining backend services powering Trukker's freight logistics platform across the GCC and India. 
+              Led design of event-driven pipelines using Apache Kafka, built RESTful microservices in .NET Core, 
+              and drove improvements to system reliability and throughput. Mentored junior engineers and collaborated 
+              closely with product and DevOps teams on cloud deployments (AWS). 
+              Recognised with the Extra Mile Award in H1 CY2024 for outstanding delivery.
+            </p>
+            <div class="tl-tags">
+              <span class="tag">C# / .NET Core</span>
+              <span class="tag">Apache Kafka</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">SQL Server</span>
+              <span class="tag">AWS</span>
+              <span class="tag">Docker</span>
+              <span class="tag">Entity Framework</span>
+              <span class="tag">ASP.NET Web API</span>
+            </div>
+            <div class="award-badge">🏆 Extra Mile Award · H1 2024</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label">Stack</div>
+      <h2 class="section-title">What I work with</h2>
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-card-icon">⚙️</div>
+          <div class="skill-card-title">Languages & Frameworks</div>
+          <div class="skill-pills">
+            <span class="pill">C#</span>
+            <span class="pill">.NET Core</span>
+            <span class="pill">ASP.NET Web API</span>
+            <span class="pill">Entity Framework</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">📨</div>
+          <div class="skill-card-title">Messaging & Streaming</div>
+          <div class="skill-pills">
+            <span class="pill">Apache Kafka</span>
+            <span class="pill">Event-driven Architecture</span>
+            <span class="pill">Message Queues</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">🗄️</div>
+          <div class="skill-card-title">Databases</div>
+          <div class="skill-pills">
+            <span class="pill">MongoDB</span>
+            <span class="pill">SQL Server</span>
+            <span class="pill">Redis</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">☁️</div>
+          <div class="skill-card-title">Cloud & Infrastructure</div>
+          <div class="skill-pills">
+            <span class="pill">AWS</span>
+            <span class="pill">Docker</span>
+            <span class="pill">CI/CD</span>
+            <span class="pill">Microservices</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">🔗</div>
+          <div class="skill-card-title">APIs & Protocols</div>
+          <div class="skill-pills">
+            <span class="pill">REST</span>
+            <span class="pill">gRPC</span>
+            <span class="pill">GraphQL</span>
+            <span class="pill">WebSockets</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">🎓</div>
+          <div class="skill-card-title">Academic Foundation</div>
+          <div class="skill-pills">
+            <span class="pill">Electronics & Communication</span>
+            <span class="pill">Mathematics</span>
+            <span class="pill">BITS Pilani</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Things I've built</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-num">01</div>
+          <div class="project-title">Freight Order Event Pipeline</div>
+          <p class="project-desc">
+            High-throughput Kafka-based event pipeline handling real-time freight order lifecycle events 
+            across the Trukker platform. Designed for fault-tolerance and replay capability, 
+            enabling downstream consumers to independently scale.
+          </p>
+          <div class="tl-tags">
+            <span class="tag">Kafka</span>
+            <span class="tag">.NET Core</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">02</div>
+          <div class="project-title">Microservices API Platform</div>
+          <p class="project-desc">
+            Modular ASP.NET Web API service mesh for logistics operations — 
+            shipment tracking, fleet management, and billing — 
+            containerised with Docker and deployed on AWS with automated CI/CD pipelines.
+          </p>
+          <div class="tl-tags">
+            <span class="tag">ASP.NET</span>
+            <span class="tag">Docker</span>
+            <span class="tag">AWS</span>
+            <span class="tag">CI/CD</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">03</div>
+          <div class="project-title">ETL & Data Pipeline Service</div>
+          <p class="project-desc">
+            Built ETL pipelines to ingest, transform, and sync operational data 
+            between MongoDB and SQL Server datastores, 
+            reducing reporting latency and enabling near-real-time analytics dashboards.
+          </p>
+          <div class="tl-tags">
+            <span class="tag">ETL</span>
+            <span class="tag">SQL Server</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">C#</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-inner">
+      <div class="section-label">Education</div>
+      <h2 class="section-title">Where I studied</h2>
+      <div class="edu-card">
+        <div class="edu-logo-box">🎓</div>
+        <div>
+          <div class="edu-uni">BITS Pilani, Goa Campus</div>
+          <div class="edu-degree">Dual Degree — Electronics & Communication + Mathematics</div>
+          <div class="edu-period">Graduated 2021</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-label">Contact</div>
+      <div class="contact-grid">
+        <div>
+          <h2 class="contact-tagline">Let's build something<br><em>worth running</em>.</h2>
+          <p class="contact-blurb">
+            I'm actively exploring new opportunities — senior backend, distributed systems, 
+            or platform engineering roles. If you're building something interesting, I'd love to hear about it.
+          </p>
+        </div>
+        <div class="contact-links">
+          <a class="contact-link" href="https://www.linkedin.com/in/pranit-sethiya-b6b09415b/" target="_blank" rel="noopener">
+            <div class="contact-link-icon">💼</div>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-val">pranit-sethiya</div>
+            </div>
+          </a>
+          <a class="contact-link" href="https://github.com/pranitsethiya29" target="_blank" rel="noopener">
+            <div class="contact-link-icon">🐙</div>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-val">pranitsethiya29</div>
+            </div>
+          </a>
+          <a class="contact-link" href="mailto:pranit@example.com">
+            <div class="contact-link-icon">✉️</div>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-val">Add your email address here</div>
+            </div>
+          </a>
+          <div class="contact-link" style="opacity:0.5; cursor:default;">
+            <div class="contact-link-icon">📍</div>
+            <div>
+              <div class="contact-link-label">Location</div>
+              <div class="contact-link-val">Bengaluru, India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2026 Pranit Sethiya. All rights reserved.</span>
+    <span class="footer-accent">// built with precision</span>
+  </footer>
+
+  <script>
+    /* ── Kafka stream generator ── */
+    const events = [
+      'ORDER.CREATED  partition=2  offset=18041',
+      'SHIPMENT.DISPATCHED  lag=0ms',
+      'FLEET.GPS_UPDATE  ts=1718012345',
+      'CONSUMER_GROUP=logistics-svc',
+      'PAYMENT.CONFIRMED  key=ord_9182',
+      'ROUTE.OPTIMISED  distance=142km',
+      'COMMIT offset=18042 partition=2',
+      'DRIVER.ASSIGNED  truckId=TRK-441',
+      'ETA.UPDATED  delta=-12min',
+      'HEARTBEAT broker=kafka-02',
+      'POD.UPLOADED  jobId=J-9912',
+      'AUTO_OFFSET_RESET=latest',
+      'REBALANCE consumer-group-3',
+      'MSG_RATE 4200/s  p99=3ms',
+      'INVOICE.GENERATED  amount=₹18,400',
+      'TOPIC=freight-events  partitions=12',
+      'WAREHOUSE.SCAN  barcode=TRK82910',
+      'REPLICA_LAG=0  in-sync=3/3',
+      'ALERT: SLA breach risk → notify',
+      'BATCH_SIZE=500  linger.ms=5',
+    ];
+
+    function buildColumn(id) {
+      const col = document.getElementById(id);
+      if (!col) return;
+      const lines = [...events, ...events].map((e, i) => {
+        const d = document.createElement('div');
+        d.className = 'stream-line' + (Math.random() > 0.72 ? ' bright' : '');
+        d.textContent = e;
+        return d;
+      });
+      lines.forEach(l => col.appendChild(l));
+    }
+    buildColumn('sc1');
+    buildColumn('sc2');
+    buildColumn('sc3');
+
+    /* shuffle each column slightly */
+    ['sc2','sc3'].forEach(id => {
+      const col = document.getElementById(id);
+      const kids = Array.from(col.children);
+      for (let i = kids.length - 1; i > 0; i--) {
+        col.appendChild(kids[Math.floor(Math.random() * (i + 1))]);
+      }
+    });
+
+    /* ── Scroll reveal ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.timeline-item, .skill-card, .project-card').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 4) * 80}ms`;
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
