@@ -1,0 +1,222 @@
+%-------------------------
+% Resume in LaTeX - format based on provided reference template
+% Content: Pranit Sethiya resume only
+%------------------------
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{fontawesome}
+\usepackage{academicons}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{\item\small{{#1 \vspace{-2pt}}}}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Pranit Sethiya} \\ \vspace{1pt}
+    \small \textbf{Senior Backend Engineer $|$ SDE-3 $|$ Distributed Systems $|$ C\#/.NET $|$ Kafka $|$ AI Integration}
+    \\ \vspace{2pt}
+    \small \faMobile \vspace{1pt} (+91) 9049143872 $|$
+    \href{mailto:pranit.sethiya@gmail.com}{\faEnvelope \vspace{1pt} pranit.sethiya@gmail.com} $|$
+    \href{https://www.linkedin.com/in/pranit-sethiya-b6b09415b/}{\faLinkedinSquare \vspace{1pt} pranit-sethiya} $|$
+    \href{https://github.com/pranitsethiya29}{\faGithubSquare \vspace{1pt} pranitsethiya29}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Birla Institute of Technology and Science (BITS) Pilani}{Goa, India}
+      {M.Sc. (Hons) Mathematics \& B.E. (Hons) Electronics \& Communication Engineering}{Aug. 2017 -- Jul. 2022}
+  \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+    
+    \resumeSubheading
+      {Trukker Technologies Pvt. Ltd.}{Bengaluru, India}
+      {Senior Software Engineer - SDE-3, Backend}{Jul. 2022 -- Present}
+      \resumeItemListStart
+
+        \resumeItem{Architected and deployed a fault-tolerant \textbf{Apache Kafka event pipeline} handling high-throughput freight order lifecycle events across MENA's largest truck aggregator, enabling independent scaling and recovery of downstream consumers at \textbf{4000+ events/sec}.}
+
+        \resumeItem{Designed and implemented scalable \textbf{ASP.NET Web API microservices} powering core logistics operations (shipment tracking, fleet management, billing) with clean architecture principles and Domain-Driven Design patterns.}
+
+        \resumeItem{Built \textbf{ETL pipelines} syncing operational data between \textbf{MongoDB} and \textbf{SQL Server}, reducing reporting latency by \textbf{60\%} and enabling near-real-time analytics across the operations dashboard.}
+
+        \resumeItem{Optimized \textbf{SQL Server} stored procedures, \textbf{LINQ}} queries, and \textbf{MongoDB} aggregation pipelines, achieving \textbf{40\% reduction in API latency} and improving database query throughput across 100+ endpoints.}
+
+        \resumeItem{Containerized backend services with \textbf{Docker} and orchestrated deployments on \textbf{AWS}} (EC2, Lambda, S3, SQS, SNS) with automated \textbf{GitLab CI/CD pipelines}, enabling zero-downtime releases.}
+
+        \resumeItem{Integrated \textbf{LLM-powered backend workflows} using \textbf{Anthropic Claude C\# SDK}, building AI-driven document processing and intelligent workflow automation for vendor onboarding and invoice handling.}
+
+        \resumeItem{Leveraged \textbf{AI-assisted development} tools (\textbf{GitHub Copilot}, \textbf{Claude Code}, \textbf{Cursor}, \textbf{OpenAI Codex}) for feature development, debugging, refactoring, and test automation — achieving \textbf{35\% faster delivery} on AI-augmented tasks.}
+
+        \resumeItem{Led cross-functional technical initiatives, mentoring junior engineers on microservices patterns, clean code practices, production debugging, and AI integration best practices.}
+
+        \resumeItem{Owned end-to-end delivery of critical subsystems including vendor onboarding, multi-currency billing, and shipment management — supporting expansion across 5+ geographies in MENA and South Asia.}
+
+        \resumeItem{Performed root cause analysis on production incidents, implemented comprehensive observability patterns with structured logging, and improved system reliability from 99.2\% to \textbf{99.8\% uptime}.}
+
+        \resumeItem{Developed and maintained \textbf{unit and integration tests}} using \textbf{xUnit}} and \textbf{NUnit}}, ensuring code quality and supporting reliable feature releases with \textbf{90\%+ code coverage}.}
+
+        \resumeItem{\textbf{Extra Mile Award} recipient (H1 CY2024) for outstanding engineering contributions, technical leadership, and driving platform reliability improvements.}
+
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Samsung R\&D Institute}{Bengaluru, India}
+      {Software Engineering Intern}{2020}
+      \resumeItemListStart
+        \resumeItem{Contributed to enterprise-grade software solutions, gaining exposure to large-scale codebases and cross-functional collaboration across product and QA teams.}
+        \resumeItem{Delivered features within defined engineering standards and timelines, understanding production deployment rigor at enterprise scale.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Ernst \& Young (EY)}{India}
+      {Technology Intern}{2019}
+      \resumeItemListStart
+        \resumeItem{Worked on enterprise solutions within one of the Big Four consulting firms, developing expertise in structured software delivery and client-facing technical teamwork.}
+        \resumeItem{Gained foundational understanding of reliability, observability, and team-level ownership in large-scale systems.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+  \resumeSubHeadingListStart
+
+    \resumeProjectHeading
+      {\textbf{Freight Order Event Pipeline} $|$ \textit{Kafka, C\#, MongoDB, Event-driven}}{}
+      \resumeItemListStart
+        \resumeItem{High-throughput Kafka-based event pipeline processing real-time freight order lifecycle events with built-in fault-tolerance, message replay, and consumer lag monitoring.}
+        \resumeItem{Designed for independent consumer scaling and recovery, supporting 4000+ events/second throughput across distributed microservices with zero data loss.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{AI-Powered Document Processing Pipeline} $|$ \textit{Anthropic Claude, C\#, LLMs}}{}
+      \resumeItemListStart
+        \resumeItem{Built backend workflow integrating \textbf{Anthropic Claude API}} for intelligent document processing, extracting structured data from vendor invoices and compliance documents.}
+        \resumeItem{Implemented prompt engineering patterns and streaming responses, reducing manual document processing time by \textbf{70\%} while maintaining 99.2\% accuracy.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Microservices API Platform} $|$ \textit{ASP.NET Core, Docker, AWS, CI/CD}}{}
+      \resumeItemListStart
+        \resumeItem{Modular service mesh for logistics operations — shipment tracking, fleet management, and billing — containerized with Docker and deployed on AWS with GitLab CI/CD.}
+        \resumeItem{Implemented automated testing, blue-green deployments, and production monitoring enabling reliable rapid releases.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{ETL \& Analytics Data Pipeline} $|$ \textit{SQL Server, MongoDB, C\#}}{}
+      \resumeItemListStart
+        \resumeItem{Built end-to-end ETL workflows ingesting, transforming, and syncing operational data between MongoDB and SQL Server using Entity Framework Core.}
+        \resumeItem{Reduced analytics latency by 60\%, enabling real-time operational dashboards and data-driven decision-making across freight operations.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+  \resumeSubHeadingListStart
+
+    \resumeSubSubheading{\textbf{Languages \& Frameworks}}
+      {C\#, Python, ASP.NET Core, .NET Core, Entity Framework Core, Django}
+
+    \resumeSubSubheading{\textbf{Messaging \& Streaming}}
+      {Apache Kafka, Event-driven Architecture, Message Queues, Real-time Processing}
+
+    \resumeSubSubheading{\textbf{Databases}}
+      {MongoDB, NoSQL, SQL Server, Redis, Query Optimization, Aggregation Pipelines}
+
+    \resumeSubSubheading{\textbf{Cloud \& Infrastructure}}
+      {AWS (EC2, Lambda, S3, SQS, SNS), Docker, GitLab CI/CD, Microservices, Containerization}
+
+    \resumeSubSubheading{\textbf{APIs \& Architecture}}
+      {RESTful APIs, gRPC, Clean Architecture, Domain-Driven Design, SOLID, Design Patterns, System Design}
+
+    \resumeSubSubheading{\textbf{AI \& LLMs}}
+      {Claude API, LLM Integration, Prompt Engineering, GitHub Copilot, Claude Code, Cursor, OpenAI Codex, AI-assisted Development, Document Processing}
+
+    \resumeSubSubheading{\textbf{Engineering Practices}}
+      {Performance Tuning, Distributed Systems, Production Debugging, Maintainable Code, TDD, xUnit, NUnit, Observability, Root Cause Analysis}
+
+  \resumeSubHeadingListEnd
+
+%-----------ACHIEVEMENTS-----------
+\section{Achievements}
+  \resumeSubHeadingListStart
+    \resumeSubItem{\textbf{Extra Mile Award} -- Trukker Technologies for extraordinary engineering contributions, AI integration leadership, and platform reliability improvements (H1 CY2024)}
+    \resumeSubItem{\textbf{4+ Years}} of backend engineering experience designing event-driven microservices, high-throughput APIs, and cloud-native data pipelines}
+    \resumeSubItem{\textbf{AI Integration Pioneer}} -- Led adoption of LLM-powered workflows at Trukker, integrating Claude API for intelligent automation and reducing manual workload by 70\%}
+    \resumeSubItem{\textbf{Performance Leadership}} -- Achieved 40\% API latency reduction and 60\% analytics query improvement through systematic optimization}
+    \resumeSubItem{\textbf{Dual Degree}} from BITS Pilani combining \textbf{Mathematics}} and \textbf{Electronics Engineering}} foundations for first-principles problem-solving}
+  \resumeSubHeadingListEnd
+
+\end{document}
